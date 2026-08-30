@@ -251,7 +251,6 @@ img {
 .char-image-wrap {
   position: absolute;
   z-index: 2;
-  /* left: 0; */
   right: -200px;
   top: 0;
   bottom: 0;
