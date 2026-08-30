@@ -251,14 +251,15 @@ img {
 .char-image-wrap {
   position: absolute;
   z-index: 2;
-  left: min(62vw, 760px);
-  right: 0;
+  /* left: 0; */
+  right: -200px;
   top: 0;
   bottom: 0;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
   opacity: 0;
@@ -287,7 +288,7 @@ img {
   width: auto;
   flex: none;
   object-fit: contain;
-  object-position: bottom;
+  object-position: top;
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
 }
 
