@@ -1,12 +1,12 @@
 :root {
   --ink: #33231f;
-  --ink-soft: #5b4440;
+  --ink-soft: #D5AA23;
   --panel: rgba(0, 0, 0, 0.5);
   --panel-border: rgba(255, 255, 255, 0.16);
-  --panel-ink: #f5ece5;
-  --panel-ink-soft: #d9c4bd;
-  --accent: #7a3b34;
-  --accent-light: #e8a798;
+  --panel-ink: #ededed;
+  --panel-ink-soft: #F9D905;
+  --accent: #D5AA23;
+  --accent-light: #F9D905;
 }
 
 * { box-sizing: border-box; }
@@ -21,7 +21,7 @@ html, body {
 body {
   font-family: "Pretendard", -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
-  background: #d3b3ae;
+  background: #e7f2ea;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -258,7 +258,6 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
   touch-action: pan-y;
@@ -379,13 +378,11 @@ img {
     padding: 32px 0;
   }
 
-  .char-image {
-    height: auto;
-    min-height: 0;
-    width: 62vw;
-    max-width: 320px;
-  }
-
+.char-image {
+  width: 88vw;
+  height: min(60vh, 640px);
+  max-width: 420px;
+}
   .collapse-btn { display: none; }
 
   .char-panel {
