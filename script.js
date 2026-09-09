@@ -138,20 +138,38 @@ function renderCharacter(index) {
   const targetSrc = c.image;
 
   const revealImage = () => {
-    if (image.getAttribute("src") !== targetSrc) return;
+    image.onload = null;
+    image.onerror = null;
     void imageWrap.offsetWidth;
     imageWrap.classList.add("enter");
   };
 
-  image.onload = revealImage;
-  image.onerror = revealImage;
+  const alreadyLoaded = image.getAttribute("src") === targetSrc && image.complete;
+
   image.alt = c.name;
-  image.src = targetSrc;
+
+  if (alreadyLoaded) {
+    revealImage();
+  } else {
+    image.onload = revealImage;
+    image.onerror = revealImage;
+    image.src = targetSrc;
+  }
 }
 
 /* ---------- 캐릭터 데이터 로딩 (파일 개수는 유동적) ---------- */
 
 const CHARACTER_FILES = ["characters1.json", "characters2.json", "characters3.json"];
+
+function preloadImage(src) {
+  return new Promise((resolve) => {
+    if (!src) return resolve();
+    const img = new Image();
+    img.onload = resolve;
+    img.onerror = resolve;
+    img.src = src;
+  });
+}
 
 Promise.all([
   Promise.allSettled(
@@ -179,7 +197,12 @@ Promise.all([
 
   dotsWrap.hidden = characters.length < 2;
 
-  playIntro();
+  const firstImage = characters[0] ? preloadImage(characters[0].image) : Promise.resolve();
+  const restImages = Promise.all(characters.slice(1).map((c) => preloadImage(c.image)));
+
+  restImages.catch(() => {});
+
+  firstImage.then(playIntro);
 });
 
 /* ---------- 배경음악 (캐릭터별 YouTube 링크, 첫 클릭 시 자동 재생) ---------- */
