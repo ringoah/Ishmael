@@ -135,20 +135,18 @@ function renderCharacter(index) {
 
   imageWrap.classList.remove("enter");
 
+  const targetSrc = c.image;
+
   const revealImage = () => {
-    image.onload = null;
+    if (image.getAttribute("src") !== targetSrc) return;
     void imageWrap.offsetWidth;
     imageWrap.classList.add("enter");
   };
 
+  image.onload = revealImage;
+  image.onerror = revealImage;
   image.alt = c.name;
-  image.src = c.image;
-
-  if (image.complete && image.naturalWidth > 0) {
-    revealImage();
-  } else {
-    image.onload = revealImage;
-  }
+  image.src = targetSrc;
 }
 
 /* ---------- 캐릭터 데이터 로딩 (파일 개수는 유동적) ---------- */
