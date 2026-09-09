@@ -95,14 +95,11 @@ function renderSectionText(container, text) {
 }
 
 /* ---------- 캐릭터 렌더링 ---------- */
-
 function renderCharacter(index) {
   const c = characters[index];
   catchEl.textContent = c.catch;
   nameEl.textContent = c.name;
   metaEl.textContent = c.meta;
-  image.src = c.image;
-  image.alt = c.name;
 
   syncBgm(c.bgm);
 
@@ -133,30 +130,25 @@ function renderCharacter(index) {
   [...dotsWrap.children].forEach((dot, i) => dot.classList.toggle("active", i === index));
 
   panel.classList.remove("enter");
-  imageWrap.classList.remove("enter");
   void panel.offsetWidth;
-  void imageWrap.offsetWidth;
   panel.classList.add("enter");
-  imageWrap.classList.add("enter");
-}
 
-function goTo(index) {
-  current = (index + characters.length) % characters.length;
-  renderCharacter(current);
-}
+  imageWrap.classList.remove("enter");
 
-function playIntro() {
-  document.documentElement.classList.remove("fonts-loading");
+  const revealImage = () => {
+    image.onload = null;
+    void imageWrap.offsetWidth;
+    imageWrap.classList.add("enter");
+  };
 
-  introPhrase.classList.remove("playing");
-  carousel.classList.remove("visible");
-  void introPhrase.offsetWidth;
-  introPhrase.classList.add("playing");
+  image.alt = c.name;
+  image.src = c.image;
 
-  setTimeout(() => {
-    renderCharacter(current);
-    carousel.classList.add("visible");
-  }, 2650);
+  if (image.complete && image.naturalWidth > 0) {
+    revealImage();
+  } else {
+    image.onload = revealImage;
+  }
 }
 
 /* ---------- 캐릭터 데이터 로딩 (파일 개수는 유동적) ---------- */
