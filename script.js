@@ -95,6 +95,7 @@ function renderSectionText(container, text) {
 }
 
 /* ---------- 캐릭터 렌더링 ---------- */
+
 function renderCharacter(index) {
   const c = characters[index];
   catchEl.textContent = c.catch;
@@ -157,13 +158,35 @@ function renderCharacter(index) {
   }
 }
 
+function goTo(index) {
+  current = (index + characters.length) % characters.length;
+  renderCharacter(current);
+}
+
+function playIntro() {
+  document.documentElement.classList.remove("fonts-loading");
+
+  introPhrase.classList.remove("playing");
+  carousel.classList.remove("visible");
+  void introPhrase.offsetWidth;
+  introPhrase.classList.add("playing");
+
+  setTimeout(() => {
+    renderCharacter(current);
+    carousel.classList.add("visible");
+  }, 2650);
+}
+
 /* ---------- 캐릭터 데이터 로딩 (파일 개수는 유동적) ---------- */
 
 const CHARACTER_FILES = ["characters1.json", "characters2.json", "characters3.json"];
 
 function preloadImage(src) {
   return new Promise((resolve) => {
-    if (!src) return resolve();
+    if (!src) {
+      resolve();
+      return;
+    }
     const img = new Image();
     img.onload = resolve;
     img.onerror = resolve;
