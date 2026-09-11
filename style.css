@@ -430,18 +430,18 @@ img {
   .mobile-info-btn {
     display: flex;
     position: absolute;
-    z-index: 7;
-    bottom: clamp(18px, 3vh, 32px);
+    z-index: 9999;
+    bottom: 90px;
     left: clamp(18px, 3vw, 32px);
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 1px solid var(--panel-border);
-    background: var(--panel);
-    color: var(--panel-ink);
-    font-size: 18px;
+    border: 3px solid white;
+    background: red;
+    color: white;
+    font-size: 24px;
     cursor: pointer;
     box-shadow: 0 8px 20px rgba(51, 35, 31, 0.2);
   }
