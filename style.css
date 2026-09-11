@@ -368,7 +368,7 @@ img {
   display: none;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1080px) {
   .char-image-wrap {
     right: 0;
     left: 0;
@@ -378,11 +378,13 @@ img {
     padding: 32px 0;
   }
 
-.char-image {
-  width: 88vw;
-  height: min(60vh, 640px);
-  max-width: 420px;
-}
+  .char-image {
+    width: 88vw;
+    height: min(60vh, 640px);
+    min-height: 0;
+    max-width: 420px;
+    object-position: center;
+  }
   .collapse-btn { display: none; }
 
   .char-panel {
